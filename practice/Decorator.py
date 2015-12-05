@@ -1,5 +1,17 @@
 __author__ = 'sr'
 
+class MyDecor( object ):
+    def __init__(self , *args , **kw ):
+        pass
+
+    def __call__( self , func ):
+        def wrapper( *args , **kw ):
+            print("Call %s() " % func.__name__ )
+            callRet = func( *args , **kw )
+            print("Called")
+            return callRet
+        return wrapper
+
 def callLog( callFunc ):
     def wrapper( *args , **kw ):
         print("Call %s() " % callFunc.__name__ )
@@ -14,7 +26,8 @@ def callLog( callFunc ):
 # printHello = callLog( printHello )
 # printHello()
 
-@callLog # printHello = callLog( printHello )
+#@callLog # printHello = callLog( printHello )
+@MyDecor()
 def printHello():
     print("Hello world")
 
@@ -22,5 +35,8 @@ def printHello():
 def getHelloStr():
     return "Hello world"
 
+
 if __name__ == "__main__":
-    pass
+    printHello()
+
+
